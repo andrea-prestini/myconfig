@@ -15,12 +15,12 @@ lvim.colorscheme = "dracula"
 lvim.transparent_window = false
 vim.opt.wrap = false
 lvim.debug = false
-lvim.builtin.telescope.pickers = {find_files = {hidden = true}}
+-- lvim.builtin.telescope.pickers = {find_files = {hidden = true}}
 -- vim.o.termguicolors = true
 -- vim.cmd[[colorscheme dracula]]
 vim.g.python_host_prog = '/bin/python2.7'
 vim.g.python3_host_prog = '/bin/python3'
-
+-- vim.g.UltiSnipsListSnippets="<C-tab>"
 -- keymappings [view all the defaults by pressing <leader>Lk]
 lvim.leader = "space"
 -- lvim.keys.normal_mode["<esc><esc>"] = "<cmd>nohlsearch<cr>"
@@ -31,7 +31,6 @@ lvim.leader = "space"
 -- lvim.keys.normal_mode["<C-q>"] = ":q<cr>"
 -- for finding syntax ids for non TS enabled languages
 vim.cmd [[
-map <F3> :set nohlsearch!<cr>
 map <F8> :Telescope find_files cwd=~/
 map <F10> :Telescope file_browser cwd=~/
 map <F4> :set relativenumber!<CR>
@@ -41,6 +40,8 @@ map w!! %!sudo tee > /dev/null %
 vim.cmd([[nmap ,  /]]) --comando modalità ricerca
 vim.cmd([[nmap ss :]]) --comando modalità comandi
 vim.cmd("set timeoutlen=300") --timeout pressione ripetuta tasti
+vim.cmd([[imap ,, <C-y>]])
+vim.cmd("set autochdir")
 
 lvim.keys.normal_mode = {
   ["<Tab>"] = ":bnext<CR>", --passa buffer successivo
@@ -49,6 +50,7 @@ lvim.keys.normal_mode = {
   --Python RUN
   ["<F5>"] = ":sp<cr> :term python3 % <cr>", --esegui in terminale file python
   ["<F6>"] = ":bd!<cr>", --forza chiusura buffer corrente
+  ["<F7>"] = ":only!<cr>",
   ["<C-n>"] = ":cnext<CR>", --quifixk passa al prossimo
   ["<C-m>"] = ":cprevious<CR>", --quickfix passa la precedence
   ["<C-j>"] = "<C-w>j", --quickfix passa la precedence
@@ -63,7 +65,7 @@ lvim.keys.normal_mode = {
 -- }
 
 
--- lvim.builtin.which_key.mappings["z"] = { "<cmd>ZenMode<cr>", "Zen" }
+lvim.builtin.which_key.mappings["z"] = { "<cmd>ZenMode<cr>", "Zen" }
 -- we use protected-mode (pcall) just in case the plugin wasn't loaded yet.
 
  local _,  actions = pcall(require, "telescope.actions")
@@ -104,7 +106,6 @@ lvim.builtin.which_key.mappings["t"] =  {
 
 
 
-
 -- TODO: User Config for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
 lvim.builtin.dashboard.active = true
@@ -124,6 +125,8 @@ lvim.builtin.treesitter.ensure_installed = {
   "rust",
   "java",
   "yaml",
+  "php",
+  "html"
 }
 
 lvim.builtin.treesitter.ignore_install = { "haskell" }
@@ -180,31 +183,90 @@ lvim.lang.python.linters = {
        cmd = "TroubleToggle",
      },
       {"lunarvim/colorschemes"},
-     {"ChristianChiarulli/vim-solidity"},
-     -- {
-     --     "folke/zen-mode.nvim",
-     --     config = function()
-     --         require("user.zen").config()
-     --     end,
-     -- },
+     {
+         "folke/zen-mode.nvim",
+         config = function()
+             require("zen-mode").setup()
+         end,
+     },
      {
          "ap/vim-css-color"
      },
+  {
+    "mattn/emmet-vim"
+  },
+  -- {
+  --   "SirVer/ultisnips"
+  -- },
+  -- {
+  --   "honza/vim-snippets"
+  -- },
      {
          "lervag/vimtex"
      },
   {
     "Mofiqul/dracula.nvim"
   },
+  -- {
+  --   "aca/emmet-ls",
+  --   config=function()
+  --     local lspconfig = require("lspconfig")
+  --     local configs = require("lspconfig/configs")
+
+  --     local capabilities = vim.lsp.protocol.make_client_capabilities()
+  --     capabilities.textDocument.completition.completitionItem.snippetSupport = true
+  --     capabilities.textDocument.completition.completitionItem.resolveSupport = {
+  --       properties = {
+  --         "documentation",
+  --         "detail",
+  --         "additionalTextEdits",
+  --       },
+
+  --     }
+  --     if not lspconfig.emmet_ls then
+  --     configs.emmet_ls = {
+  --       default_config = {
+  --         cmd = { "emmet-ls", "--stdio" },
+  --         filetypes = {
+  --           "html",
+  --           "css",
+  --           "javascript",
+  --           "typescript",
+  --           "eruby",
+  --           "typescriptreact",
+  --           "javascriptreact",
+  --           "svelte",
+  --           "vue",
+  --     },
+  --     root_dir = function(fname)
+  --       return vim.loop.cwd()
+  --   end,
+  --   settings = {},
+  --   },
+  -- }
+  --   end
+  --   lspconfig.emmet_ls.setup({ capabilities = capabilities})
+  --   end,
+
+  -- },
      {
          "tpope/vim-surround"
      },
-     -- {
-     --     "tpope/vim-commentary"
-     -- },
   {
-     "ludovicchabant/vim-gutentags"
-    },
+    "AndrewRadev/tagalong.vim"
+  },
+  -- {
+  --   "alvan/vim-closetag"
+  -- },
+  -- {
+  --   "docunext/closetag.vim"
+  -- },
+     {
+         "tpope/vim-commentary"
+     },
+  -- {
+  --    "ludovicchabant/vim-gutentags"
+  --   },
      {
   "monaqa/dial.nvim",
   event = "BufRead",
@@ -275,6 +337,9 @@ lvim.lang.python.linters = {
   --   require('telescope').load_extension('coc')
   -- },
   {
+    "neoclide/coc.nvim"
+  },
+  {
     "jesseduffield/lazygit"
   },
  }
@@ -286,19 +351,18 @@ lvim.autocommands.custom_groups = {
 lvim.autocommands.custom_groups = {
    { "BufWinEnter", "*.py", "call append(0,'#!/usr/bin/python3')" },
  }
- 
  lvim.autocommands.custom_groups = {
    { "BufNewFile", "*.tex", "call append(0,'\\documentclass{article}')" },
    { "BufNewFile", "*.tex", "call append(1,'\\usepackage[T1]{fontenc}')" },
    { "BufNewFile", "*.tex", "call append(2,'\\usepackage[utf8]{inputenc}')" },
  }
- 
- lvim.autocommands.custom_groups={
-   "BufWinLeave ?* mkview"
-}
+
+
+
 lvim.autocommands.custom_groups={
-  "BufWinEnter ?* silent! loadview"
+"FileType python nnoremap <buffer> <cr> :silent w<bar>only<bar>vsp<bar> term ipython3 -i %<cr>"
 }
+
  vim.cmd [[ au CmdWinEnter * quit ]]
  require("nvim-treesitter.parsers").get_parser_configs().solidity = {
    install_info = {

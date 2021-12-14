@@ -3,6 +3,9 @@ set encoding=utf8
 set cursorline
 autocmd ColorScheme * highlight CursorlineNr cterm=bold term=bold gui=bold
 let NERDTreeShowHidden=1
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 "=========PYTHON TOOLS=======================================
 au BufNewFile,BufRead *.py
@@ -23,6 +26,7 @@ autocmd FileType python set colorcolumn=120
 augroup END
 runtime! ftplugin/man.vim
 autocmd BufNewFile *.py call append(0, "#!/usr/bin/python3")
+autocmd FileType python nnoremap <buffer> <cr> :silent w<bar>only<bar>vsp<bar> term ipython3 -i %<cr>
 
 :nmap <F6> :set cul!<CR>
 map  <F5> :w<CR>:!clear;python3 %<CR>
@@ -193,8 +197,20 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'kalekundert/vim-coiled-snake'
 Plugin 'chrisbra/Colorizer'
 Plugin 'JamshedVesuna/vim-markdown-preview'
+"Plugin 'mattn/emmet-vim'
+Plugin 'neoclide/coc.nvim'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
 
 
+" autocmd FileType html,htmldjango,css,scss,sass imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
+" let g:user_emmet_install_global = 0
+" autocmd FileType html,css EmmetInstall
+" let g:user_emmet_leader_key='<C-n>'
+
+" let g:user_emmet_leader_key='<Tab>'
+" imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
+imap ,, <C-y>
 call vundle#end()
 filetype plugin indent on
 "AIRLINE Customization==========================================
@@ -401,3 +417,4 @@ nmap <expr> <Down> &diff ? ']czz' : '<Down>'
 
 let g:gitgutter_enabled = 1
 set updatetime=1000
+

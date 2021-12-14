@@ -32,7 +32,7 @@
       position = 400:320
       maximised = False
       fullscreen = False
-      size = 1100, 600
+      size = 1000, 700 
       title = andrea@pop-os:~
       last_active_term = 1f6183a8-edf7-4b61-89ce-d6df292b93f2
       last_active_window = True
@@ -50,7 +50,7 @@
       position = 400:320
       maximised = False
       fullscreen = False
-      size = 1100, 600
+      size = 1000, 700
       title = andrea@pop-os:~
       last_active_term = 1f6183a8-edf7-4b61-89ce-d6df292b93f2
       last_active_window = True

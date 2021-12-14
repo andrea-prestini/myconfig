@@ -122,6 +122,7 @@ alias onedrivesincro="onedrive --synchronize"
 alias pdfweb="pdf2htmlEX"
 alias copia="bash -i $HOME/copia.sh"
 alias salva="bash -i $HOME/salva.sh"
+alias cat="bat"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
